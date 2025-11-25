@@ -5,26 +5,21 @@ using namespace std;
 int main() {
   long long tam; cin>>tam;
   vector<long long> nums(tam); for(long long &n:nums) cin>>n;
-  map<long long,long long> freq;
+  
+  sort(nums.begin(), nums.end());
+  long long maior = nums[tam-1];
+
+  vector<long long> freq(maior+1, 0);
   for(long long i=0 ; i<tam ; i++){
     freq[nums[i]]++;
   }
-  sort(nums.begin(), nums.end());
-  long long maior = nums[tam-1];
+  long long gcd=maior;
   
-  for(auto n:nums) cout << n << " ";
-  cout << '\n';
-  
-  long long gcd=1;
   for(long long j=maior ; j>0 ; j--){
     long long cont=0;
     
     for(long long g=j ; g<=maior ; g+=j){
-      // cout << "cont: " << cont << '\n';
-      if(freq.find(g) != freq.end()){
-        // cout << "g: " << g << '\n';
-        cont++;
-      } 
+      cont+=freq[g];
       
       if(cont == 2){
         gcd = j;
@@ -33,7 +28,7 @@ int main() {
     }
     if(cont == 2) break;
   }
-  // cout << '\n';
+
   cout << gcd << '\n';
   
   return 0;
