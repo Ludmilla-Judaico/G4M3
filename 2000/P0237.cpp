@@ -38,11 +38,15 @@ int main()
     long long lEsq, aEsq, lDir, aDir, pAtual=0, pMaior=0;
     
     for(i=2 ; i<=qnt-3 ; i++){
-      maxXEsq = max(x[i-1], maxXEsq);
-      maxYEsq = y[i-1]; 
-      
-      minXDir = min(x[i+1], minXDir);
-      maxYDir = y[i+1]; 
+      maxXEsq = max(maxXEsq, x[i-1]);
+      minXEsq = min(minXEsq, x[i-1]);
+      maxYEsq = max(maxYEsq, y[i-1]);
+      minYEsq = min(minYEsq, y[i-1]);
+
+      maxXDir = max(maxXDir, x[i+1]);
+      minXDir = min(minXDir, x[i+1]);
+      maxYDir = max(maxYDir, y[i+1]);
+      minYDir = min(minYDir, y[i+1]); 
       
       lEsq = maxXEsq - minXEsq; aEsq = maxYEsq - minYEsq; 
       lDir = maxXDir - minXDir; aDir = maxYDir - minYDir;
