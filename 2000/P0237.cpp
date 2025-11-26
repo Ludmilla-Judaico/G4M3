@@ -33,15 +33,15 @@ int main()
     }
     
     //CALCULANDO RETANGULOS
-    long long minXEsq=x[0], maxXEsq=x[1], minYEsq=y[0], maxYEsq=y[0];
-    long long minXDir=x[3], maxXDir=x[qnt-1], minYDir=y[3], maxYDir=y[3];
+    long long minXEsq=x[0], maxXEsq=x[1], minYEsq=min(y[0], y[1]), maxYEsq=max(y[0], y[1]);
+    long long minXDir=x[3], maxXDir=x[qnt-1], minYDir=min(y[3], y[4]), maxYDir=max(y[3], y[4]);
     long long lEsq, aEsq, lDir, aDir, pAtual=0, pMaior=0;
     
     for(i=2 ; i<=qnt-3 ; i++){
-      maxXEsq = x[i-1];
+      maxXEsq = max(x[i-1], maxXEsq);
       maxYEsq = y[i-1]; 
       
-      minXDir = x[i+1];
+      minXDir = min(x[i+1], minXDir);
       maxYDir = y[i+1]; 
       
       lEsq = maxXEsq - minXEsq; aEsq = maxYEsq - minYEsq; 
