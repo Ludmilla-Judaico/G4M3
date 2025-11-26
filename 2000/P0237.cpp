@@ -1,16 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// long long proxPrimo(vector<bool>, long long n){
-  
-//   return prox;
-// }
-
 int main() 
 {
     //CRIVO----------------------------------------
     long long LIM = 4e6;
-    vector<bool> is_prime(LIM + 1); for(long long n=2 ; n<=LIM ; n++) is_prime[n] = true;
+    vector<bool> is_prime(LIM + 1, true);
     is_prime[0] = is_prime[1] = false;
     for(long long n=2 ; n*n<=LIM ; n++){
       if(!is_prime[n]) continue;
@@ -38,21 +33,31 @@ int main()
     }
     
     //CALCULANDO RETANGULOS
-    long long minXEsq=x[0], maxXEsq=x[2], minYEsq=*min_element(y.begin(), y.begin()+2), maxYEsq=y[2];
-    long long minXDir=x[qnt-3], maxXDir=x[qnt-1], minYDir=*min_element(y.begin()+(qnt-3), y.begin()+(qnt-1)), maxYDir=*max_element(y.begin()+(qnt-3), y.begin()+(qnt-1));
+    long long minXEsq=x[0], maxXEsq=x[1], minYEsq=y[0], maxYEsq=y[0];
+    long long minXDir=x[3], maxXDir=x[qnt-1], minYDir=y[3], maxYDir=y[3];
     long long lEsq, aEsq, lDir, aDir, pAtual=0, pMaior=0;
     
     for(i=2 ; i<=qnt-3 ; i++){
-      maxXEsq = max(maxXEsq, x[i-1]); minXEsq = min(minXEsq, x[i-1]);
-      maxYEsq = max(maxYEsq, y[i-1]); 
+      maxXEsq = x[i-1];
+      maxYEsq = y[i-1]; 
       
-      maxXDir = max(maxXDir, x[i+1]); minXDir = min(minXDir, x[i+1]);
-      maxYDir = max(maxYDir, y[i+1]); 
+      minXDir = x[i+1];
+      maxYDir = y[i+1]; 
       
       lEsq = maxXEsq - minXEsq; aEsq = maxYEsq - minYEsq; 
       lDir = maxXDir - minXDir; aDir = maxYDir - minYDir;
       
+      
+      if(!is_prime[lEsq]) lEsq = *upper_bound(primos.begin(), primos.end(), lEsq);
+      if(!is_prime[aEsq]) aEsq = *upper_bound(primos.begin(), primos.end(), aEsq);
+      if(!is_prime[lDir]) lDir = *upper_bound(primos.begin(), primos.end(), lDir);
+      if(!is_prime[aDir]) aDir = *upper_bound(primos.begin(), primos.end(), aDir);
+      
+      cout << lEsq << " " << aEsq << " " << lDir << " " << aDir << '\n';
+      
+      
       pAtual = (2*(lEsq+aEsq)) + (2*(lDir+aDir));
+      cout <<  (2*(lEsq+aEsq)) << " " <<  (2*(lDir+aDir)) << '\n';
       pMaior = max(pAtual, pMaior);
     }
     
