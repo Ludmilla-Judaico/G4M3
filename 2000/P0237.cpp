@@ -35,7 +35,9 @@ int main()
     //CALCULANDO RETANGULOS
     long long minXEsq=x[0], maxXEsq=x[1], minYEsq=min(y[0], y[1]), maxYEsq=max(y[0], y[1]);
     long long minXDir=x[3], maxXDir=x[qnt-1], minYDir=min(y[3], y[4]), maxYDir=max(y[3], y[4]);
-    long long lEsq, aEsq, lDir, aDir, pAtual=0, pMaior=0;
+    long long lEsq, aEsq, lDir, aDir, pAtual=0;
+    
+    long long pMelhor = LLONG_MAX;
     
     for(i=2 ; i<=qnt-3 ; i++){
       maxXEsq = max(maxXEsq, x[i-1]);
@@ -51,7 +53,6 @@ int main()
       lEsq = maxXEsq - minXEsq; aEsq = maxYEsq - minYEsq; 
       lDir = maxXDir - minXDir; aDir = maxYDir - minYDir;
       
-      
       if(!is_prime[lEsq]) lEsq = *upper_bound(primos.begin(), primos.end(), lEsq);
       if(!is_prime[aEsq]) aEsq = *upper_bound(primos.begin(), primos.end(), aEsq);
       if(!is_prime[lDir]) lDir = *upper_bound(primos.begin(), primos.end(), lDir);
@@ -59,13 +60,12 @@ int main()
       
       cout << lEsq << " " << aEsq << " " << lDir << " " << aDir << '\n';
       
-      
       pAtual = (2*(lEsq+aEsq)) + (2*(lDir+aDir));
       cout <<  (2*(lEsq+aEsq)) << " " <<  (2*(lDir+aDir)) << '\n';
-      pMaior = max(pAtual, pMaior);
+      pMelhor = min(pAtual, pMelhor);
     }
     
-    cout << pMaior;
+    cout << pMelhor;
     
     return 0;
 }
